@@ -1,0 +1,72 @@
+Q2 - Secure Project Workspace Setup
+==================================
+
+1) Directory structure created
+Command:
+mkdir -p secure_workspace/{docs,src,logs}
+Output:
+(no output)
+
+Created structure:
+secure_workspace/
+├── docs/
+├── src/
+└── logs/
+
+Files created:
+secure_workspace/docs/plan.txt
+secure_workspace/src/app.txt
+secure_workspace/logs/activity.log
+
+2) Permissions before modification
+Initial listing:
+Command:
+ls -ld secure_workspace secure_workspace/*
+Output:
+drwxrwxrwx+ 5 codespace codespace 4096 Jul 3 17:11 secure_workspace
+drwxrwxrwx+ 2 codespace codespace 4096 Jul 3 17:11 secure_workspace/docs
+drwxrwxrwx+ 2 codespace codespace 4096 Jul 3 17:11 secure_workspace/logs
+drwxrwxrwx+ 2 codespace codespace 4096 Jul 3 17:11 secure_workspace/src
+
+Observation:
+The newly created workspace and its subdirectories initially had broad permissions.
+
+3) Permissions after modification
+Command:
+chmod 750 secure_workspace
+chmod 750 secure_workspace/docs secure_workspace/src secure_workspace/logs
+chmod 640 secure_workspace/docs/plan.txt secure_workspace/src/app.txt secure_workspace/logs/activity.log
+
+Output:
+Command:
+ls -ld secure_workspace secure_workspace/*
+Output:
+drwxr-x---+ 5 codespace codespace 4096 Jul 3 17:11 secure_workspace
+drwxr-x---+ 2 codespace codespace 4096 Jul 3 17:11 secure_workspace/docs
+drwxr-x---+ 2 codespace codespace 4096 Jul 3 17:11 secure_workspace/logs
+drwxr-x---+ 2 codespace codespace 4096 Jul 3 17:11 secure_workspace/src
+
+Command:
+ls -l secure_workspace/*
+Output:
+secure_workspace/docs:
+-rw-r----- 1 codespace codespace 0 Jul 3 17:11 plan.txt
+
+secure_workspace/logs:
+-rw-r----- 1 codespace codespace 0 Jul 3 17:11 activity.log
+
+secure_workspace/src:
+-rw-r----- 1 codespace codespace 0 Jul 3 17:11 app.txt
+
+4) Ownership details
+Owner and group for all created items:
+codespace codespace
+
+5) Umask value used
+Command:
+umask
+Output:
+0022
+
+6) Explanation of permission protection
+The permissions were reduced from widely open access to a more restricted model. The owner can read and write, the group can read, and others have no access. This protects project data from unauthorized viewing or modification while still allowing the project team to use the workspace.

@@ -1,0 +1,64 @@
+Q3 - File System and Link Analysis
+=================================
+
+1) Creating the original file and links
+Command:
+rm -f original.txt hardlink.txt symlink.txt
+echo "Linux link test file" > original.txt
+ln original.txt hardlink.txt
+ln -s original.txt symlink.txt
+
+Output:
+(no output)
+
+2) Inode information
+Command:
+ls -li
+Output:
+total 8
+1310805 -rw-rw-rw- 2 codespace codespace 21 Jul 3 17:16 hardlink.txt
+1310805 -rw-rw-rw- 2 codespace codespace 21 Jul 3 17:16 original.txt
+1310806 lrwxrwxrwx 1 codespace codespace 12 Jul 3 17:17 symlink.txt -> original.txt
+
+Observation:
+The hard link and original file share the same inode number (1310805), while the symbolic link has a different inode.
+
+3) Metadata collected
+Command:
+stat original.txt hardlink.txt symlink.txt
+Output:
+File: original.txt
+Size: 21 Blocks: 8 IO Block: 4096 regular file
+Device: 7,4 Inode: 1310805 Links: 2
+...
+File: hardlink.txt
+Size: 21 Blocks: 8 IO Block: 4096 regular file
+Device: 7,4 Inode: 1310805 Links: 2
+...
+File: symlink.txt -> original.txt
+Size: 12 Blocks: 0 IO Block: 4096 symbolic link
+Device: 7,4 Inode: 1310806 Links: 1
+
+4) Behavior after deleting the original file
+Command:
+rm original.txt
+ls -li
+cat hardlink.txt
+cat symlink.txt
+
+Output:
+ls -li
+1310805 -rw-rw-rw- 1 codespace codespace 21 Jul 3 17:16 hardlink.txt
+1310806 lrwxrwxrwx 1 codespace codespace 12 Jul 3 17:17 symlink.txt -> original.txt
+
+cat hardlink.txt
+Linux link test file
+
+cat symlink.txt
+cat: symlink.txt: No such file or directory
+
+Conclusion:
+Deleting the original file does not remove the hard link, because both names point to the same inode. The symbolic link breaks because it points to a path that no longer exists.
+
+5) Summary of findings
+A hard link is another directory entry to the same inode and behaves like a duplicate file name. A symbolic link is a separate file that stores the target path and depends on the target remaining available.

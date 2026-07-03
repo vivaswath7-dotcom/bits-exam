@@ -1,0 +1,74 @@
+Q1 - Linux Environment Verification
+=================================
+
+1) Username and groups
+Command:
+whoami
+Output:
+codespace
+
+Command:
+groups
+Output:
+codespace pipx python oryx golang docker sdkman rvm php conda nvs nvm hugo ssh
+
+Observation:
+The active account is codespace and it belongs to several development-related groups.
+
+2) Current shell and working directory
+Command:
+echo "$SHELL"
+Output:
+/bin/bash
+
+Command:
+pwd
+Output:
+/
+
+Observation:
+The shell in use is /bin/bash and the current working directory is the root directory /.
+
+3) Workspace contents
+Command:
+ls -ls
+Output:
+total 88
+0 lrwxrwxrwx 1 root root 7 Apr 22 2024 bin -> usr/bin
+4 drwxr-xr-x 2 root root 4096 Jul 10 2025 bin.usr-is-merged
+4 drwxr-xr-x 2 root root 4096 Apr 22 2024 boot
+0 drwxr-xr-x 13 root root 3940 Jul 3 16:57 dev
+8 drwxr-xr-x 1 root root 4096 Jul 3 16:58 etc
+4 drwxrwsr-x 3 codespace golang 4096 Apr 6 00:22 go
+8 drwxr-xr-x 1 root root 4096 Jul 3 16:57 home
+0 lrwxrwxrwx 1 root root 7 Apr 22 2024 lib -> usr/lib
+4 drwxr-xr-x 2 root root 4096 Nov 14 2024 lib.usr-is-merged
+0 lrwxrwxrwx 1 root root 9 Mar 11 11:59 lib32 -> usr/lib32
+0 lrwxrwxrwx 1 root root 9 Apr 22 2024 lib64 -> usr/lib64
+4 drwxr-xr-x 2 root root 4096 Feb 10 14:05 media
+4 drwxr-xr-x 2 root root 4096 Feb 10 14:05 mnt
+4 drwxrwsr-x 1 codespace oryx 4096 Jul 3 16:58 opt
+0 dr-xr-xr-x 237 root root 0 Jul 3 16:57 proc
+4 drwx------ 1 root root 4096 Mar 11 12:16 root
+4 drwxr-xr-x 1 root root 4096 Jul 3 16:58 run
+0 lrwxrwxrwx 1 root root 8 Apr 22 2024 sbin -> usr/sbin
+4 drwxr-xr-x 2 root root 4096 Jul 10 2025 sbin.usr-is-merged
+4 drwxr-xr-x 2 root root 4096 Feb 10 14:05 srv
+0 dr-xr-xr-x 12 root root 0 Jul 3 17:08 sys
+4 drwxr-xrwt+ 4 root root 4096 Jul 3 17:37 tmp
+8 drwxr-xr-x 1 root root 4096 Mar 11 11:59 usr
+8 drwxr-xr-x 1 root root 4096 Jul 3 16:57 var
+4 drwxr-xr-x 5 root root 4096 Jul 3 16:54 vscode
+4 drwxrwxrwx+ 5 codespace root 4096 Jul 3 16:58 workspaces
+
+Observation:
+The workspace contains standard Linux system directories and the project directory /workspaces.
+
+4) Network connectivity check
+Command:
+curl -s --max-time 10 https://youtube.com > /dev/null && echo "Network: youtube.com reachable"
+Output:
+Network: youtube.com reachable
+
+Observation:
+The environment has outbound network connectivity to YouTube.
